@@ -405,12 +405,50 @@ int days_order(string d){    				//this function gets the day and sends its inde
 		}
 }
 
-
-
-
-
-
-
+class date{
+	private:
+		unsigned int day;
+		unsigned int month;
+		unsigned int year;
+		bool valid=true;
+	public:
+		void find_val(int y,int m,int d){
+			if(m>12||m<1)valid=false;
+			if(0<m<=6&&d>32)valid=false;
+			if(6<m<=11&&d>31)valid=false;
+			if(m==12&&d>29)valid=false;
+		}
+		date(int y,int m,int d){
+			find_val(y,m,d);
+			if(valid){
+				year=y;
+				month=m;
+				day=d;
+			}
+			else{
+				cout<<"invalid value provided for argument!! \nplease try again";
+			}
+		}
+		void set_d(int h,int m,int d){
+			find_val(h,m,d);
+			if(valid){
+				year=h;
+				month=m;
+				day=d;				
+			}
+			else{
+				cout<<"invalid value provided for argument!! \nplease try again";
+			}
+		}
+		void show_d(){
+			if(valid){
+				if(month<10&&day<10)cout<<year<<"/"<<"0"<<month<<"/"<<"0"<<day;
+				if(month>10&&day<10)cout<<year<<"/"<<month<<"0"<<"/"<<day;
+				if(month<10&&day>10)cout<<year<<"/"<<"0"<<month<<"/"<<day;
+				if(month>10&&day>10)cout<<year<<"/"<<month<<"/"<<day;
+			}
+		}
+};
 
 
 int random(int a,int b){
