@@ -198,16 +198,16 @@ void reservation(time t1,time t2,room w,int day_number){
 	int n1=find_time_index(arr,t1);
 	int n2=find_time_index(arr,t2);
 	for(n1;n1<=n2;n1++){
-		array[day_number][n1]=true;
+		array[day_number][n1]=true;				// fills indexes that you want to be reserved with true value
 	}
 
 }
 
 
-void show_timeline(room d){
+void show_timeline(room d){					//shows the timeline of each day
 	cout<<"this is the timeline of ";
 	d.room_show();
-	cout<<"\t(0) stands for free times & (1) stands for reserved times ."<<endl;
+	cout<<"\t\t(0) stands for free times & (1) stands for reserved times ."<<endl;
 	
 	for(int i=0;i<5;i++)
 		for(int j=0;j<36;j++){
@@ -243,10 +243,10 @@ do {
 		v_d=0;
 	}
 	if(v_d==1){
-	rooms_vp.push_back(room(x,v_d));	
+	rooms_vp.push_back(room(x,v_d));		//pushes the room to the list of rooms with video projector
 	}
 	else{
-	rooms_nvp.push_back(room(x,v_d));
+	rooms_nvp.push_back(room(x,v_d));		//pushes the room to the list of rooms with out video projector
 	}
 	
 	x++;
@@ -269,10 +269,12 @@ class lesson{
 		string day;
 	public:
 		
-		friend void reservation(time t1(),time t2(),string day);
+		friend void reservation(time t1(),time t2(),string day);		//I have written this function with friend keyword so it can have access to private and protected members of this class
 		
-		lesson(string n=" ",string t_n=" ",int p=0,bool n_p=false):name(n),teacher_n(t_n),period(p),need_projector(n_p){};
-		void set_lesson(){
+		lesson(string n=" ",string t_n=" ",int p=0,bool n_p=false):name(n),teacher_n(t_n),period(p),need_projector(n_p){};		//constructor
+		
+		
+		void set_lesson(){		
 			do{
 
 			cout<<"please enter an ID for this lesson :";
@@ -321,7 +323,7 @@ class lesson{
 				}
 				
 			}
-			else{
+			else{			//if you want us to pick a room for you , room will be set for you by accident
 				int r=random(0,rooms_vp.size());
 				reservation(start,start+dur,rooms_vp.at(r),days_order(day));
 				show_timeline(rooms_vp.at(r));
@@ -345,7 +347,7 @@ class lesson{
 					}
 			}
 			}
-			else{
+			else{			//if you want us to pick a room for you , room will be set for you by accident
 				int e=random(0,rooms_nvp.size());
 				reservation(start,start+dur,rooms_nvp.at(e),days_order(day));
 				show_timeline(rooms_nvp.at(e));
@@ -369,7 +371,7 @@ class lesson{
 			}
 		
 		
-		void write_file(){
+		void write_file(){			//writes the informations to the file
 			ofstream lesson_file;
 			lesson_file.open("lesson_file.txt",ios::app);
 			if(lesson_file.is_open()){
@@ -451,7 +453,7 @@ class date{
 };
 
 
-int random(int a,int b){
+int random(int a,int b){		//sets random numbers
 	int i = rand()%(b-a+1)+a;
 	return i;
 }
@@ -462,7 +464,6 @@ make_room(rooms_vp,rooms_nvp);
 lesson l;
 l.set_lesson();
 l.write_file();
-
 
 }
 
